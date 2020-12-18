@@ -31,7 +31,7 @@
 		return $result;
 	}
 	function uidExists($conn,$username,$email){
-		$sql="SELECT * FROM customer WHERE cust_id = ? OR email= ?;";
+		$sql="SELECT * FROM customer WHERE username = ? OR email= ?;";
 		$stmt=mysqli_stmt_init($conn);
 		if(!mysqli_stmt_prepare($stmt,$sql)){
 			header("location: ../sign_up.php?error=stmtfailed");
@@ -60,7 +60,11 @@
 		mysqli_stmt_bind_param($stmt,"sssss",$name,$email,$username,$phone,$hashedPwd);
 		mysqli_stmt_execute($stmt);
 		mysqli_stmt_close($stmt);
-		header("location: sign_up.php?error=none");
+		session_start();
+			$_SESSION["cust_id"]=$uidExists["cust_id"];
+			$_SESSION["username"]=$uidExists["username"];
+		
+		header("location: first_page.php");
 		exit();
 	}
 	function emptyInputLogin($username,$password){
@@ -76,7 +80,7 @@
 	function loginUser($conn,$username,$password){
 		$uidExists=uidExists($conn,$username,$username);
 		if($uidExists === false){
-			header("location: login.php?error=wronglogin");
+			header("location: login.php?error=wrong");
 			exit();
 		}
 		$pwdHashed=$uidExists["password"];

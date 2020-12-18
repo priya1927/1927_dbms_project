@@ -2,9 +2,9 @@
   include_once 'header.php';
 ?>
 <div style="margin-right: 400px;margin-left: 400px;margin-top: 10px;margin-bottom: 10px; border-style: solid; border-color: black;border-width: 1px;">
-<center>
-	<h1 style="background-color: #cc6699;margin-top: 0px;">Sign Up</h1>
-	<div style="text-align: left; padding-left: 10px;padding-right: 10px;padding-bottom: 10px">
+<center style="font-family: Californian FB;">
+	<h1 style="background-color: #ccccb3;margin-top: 0px;font-weight: bold; font-style: italic;">Sign Up</h1>
+	<div style="text-align: left; padding-left: 10px;padding-right: 10px;padding-bottom: 10px;font-size: 15px;">
 		<form action="sign_up.inc.php" method="POST">
 			<label>Full Name:</label>
 			<input type="text" name="name" placeholder="Enter your full name" class="form-control"/>

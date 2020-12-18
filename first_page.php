@@ -2,7 +2,7 @@
   include_once 'header.php';
 ?>
      
-    <img class="img-responsive" width="100%" src="images/image5.jpg" alt="background_image"> 
+    <img class="img-responsive" width="100%" src="images/white_bg.jpg" alt="background_image"> 
     <div class="centered">
     <h1 class="h1">Welcome To Swaad Catering Service!</h1>
     <p class="text">Order on your special day</p>
