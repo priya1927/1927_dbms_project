@@ -40,6 +40,7 @@
 					echo "<br><input type='checkbox' value='".$s_row["dish_name"]."' name=dishes[]>"."    ".$s_row["dish_name"]."<br>";
 				}
 			}
+			echo "<input type='hidden' name='order_id' value='".$_GET['orderId']."'>";
 			echo "<br><center><button type='submit' name='submit' class='btn btn-primary'>Submit</button></center><br><br></form></div>";
 		?>
 	</div>

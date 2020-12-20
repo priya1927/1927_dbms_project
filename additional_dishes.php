@@ -14,8 +14,8 @@
 	if(isset($_POST["menu"])){
 	echo "<div style='margin-left:15px;'><form action='order_details.php' method='POST' >";
 	$menu=$_POST["menu"];
-	
-	
+	$order_id=$_POST["order_id"];
+	$item_list=array();
 	foreach ($menu as $key => $value) {	
 		$sql="select * from dishes where dish_name in(select dish_name from menu_items where menu_id =".$value.");";
 
@@ -23,7 +23,8 @@
 		$result_check=mysqli_num_rows($result);		
 		if($result_check>0){
 			while($row=mysqli_fetch_assoc($result)){
-				echo "<br><input type='checkbox' value='".$row["dish_name"]."' name=dish[] checked disabled>"."    ".$row["dish_name"]."<br>";
+				echo "<br><input type='checkbox' value='".$row["dish_name"]."' name=dish[] checked>"."    ".$row["dish_name"]."<br>";
+				$item_list[]=$row["dish_name"];
 			}
 		}  			
 	}
@@ -37,7 +38,8 @@
 			$result_check=mysqli_num_rows($res);		
 			if($result_check>0){
 				while($row=mysqli_fetch_assoc($res)){
-					echo "<br><input type='checkbox' value='".$row["dish_name"]."' name=dish[] checked disabled>"."    ".$row["dish_name"]."<br>";
+					echo "<br><input type='checkbox' value='".$row["dish_name"]."' name=dish[] checked>"."    ".$row["dish_name"]."<br>";
+					$item_list[]=$row["dish_name"];
 				}
 			}  			
 	    }
@@ -52,12 +54,13 @@
 		if($result_check>0){
 			while($row=mysqli_fetch_assoc($result)){
 				echo "<br><input type='checkbox' value='".$row["dish_name"]."' name=dish[]>"."    ".$row["dish_name"]."<br>";
+				$item_list[]=$row["dish_name"];
 			}
 		} 
 	} 		
 	    echo "<center><h3>Additional Items</h3></center>";
-    foreach ($menu as $key => $value) {	
-	$sql="select * from dishes where dish_name not in(select dish_name from menu_items where menu_id =".$value.") and category!='Ice Cream' order by category asc";
+    $list=implode("','",$item_list);
+	$sql="select * from dishes where dish_name not in ('".$list."') order by category asc";
 
 	$result=mysqli_query($conn,$sql);
 	$result_check=mysqli_num_rows($result);		
@@ -66,7 +69,8 @@
 			echo "<br><input type='checkbox' value='".$row["dish_name"]."' name=dish[]>"."    ".$row["dish_name"]."<br>";
 		}
 	}  			
-	}
+	
+	echo "<input type='hidden' name='orderId' value='".$order_id."'>";
 	echo "<br><center><button type='submit' name='submit' class='btn btn-primary'>Submit</button></center><br><br></form></div>";
 }
 else
